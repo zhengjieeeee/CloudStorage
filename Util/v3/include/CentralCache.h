@@ -2,6 +2,9 @@
 #include "Common.h"
 #include <mutex>
 
+namespace Kama_memoryPool
+{
+
 class CentralCache
 {
 public:
@@ -38,3 +41,5 @@ private:
     // 用于同步的自旋锁
     std::array<std::atomic_flag, FREE_LIST_SIZE> locks_;
 };
+
+} // namespace memoryPool
