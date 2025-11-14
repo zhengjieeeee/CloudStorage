@@ -8,36 +8,19 @@
 #include <condition_variable>
 #include <atomic>
 
-#include "../../Util/MemoryPool/MemoryPool.h"
 #include "../../Util/tools/MessageType.h"
-#include "MessageQueue.h"
-
-#pragma comment(lib, "ws2_32.lib")
-
-// 连接状态
-enum class Status{
-    CLOSE,
-    CONNTECTING,
-    CONNECTED,
-    ERROR_
-};
+#include "Channel.h"
 
 class Connection
 {
 public:
-    using RecvCallBack = std::function<void(const char*)>;
-
     static Connection& getInstance(){
         static Connection instance;
         return instance;
     }
 
     // 使用内存池优化
-    bool send(char* data, size_t size);
-
-    // 接收回调
-    void setRecv(RecvCallBack &cb);
-
+    bool send(char* data, size_t size, ChannelType type);
 private:
     Connection();
     ~Connection();
@@ -45,28 +28,6 @@ private:
     Connection(Connection&&) = delete;
     Connection& operator= (const Connection&) = delete;
 
-    void sendInThread();
-    void recvInThread();
-
-    void OnRecv();
-
 private:
-    std::string serverIp_;
-    int serverPort_;
-
-    Status status_;
-
-    WSADATA wsaData_;
-    SOCKET fd_;
-    sockaddr_in serverAddr_;
-
-    RecvCallBack recvCallBack_;
-
-    MessageQueue sendQueue_;
-    MessageQueue recvQueue_;
-
-    std::condition_variable sendCv_;
-    std::condition_variable recvCv_;
-    std::mutex sendMutex_;
-    std::mutex recvMutex_;
+   std::unordered_map<ChannelType, Channel*> channels_;
 };
