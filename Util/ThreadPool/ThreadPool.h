@@ -11,7 +11,6 @@
 class ThreadPool
 {
 public:
-    ThreadPool(size_t defaultNumThreads, Time* timer);
     ThreadPool(size_t defaultNumThreads);
     ~ThreadPool();
 

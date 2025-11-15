@@ -30,10 +30,9 @@ void Thread::run(){
     while (state_ == ThreadState::RUNNING){
         if (task_){
             task_();
-            lastActiveTime_ = std::time(nullptr);
         }
         std::unique_lock<std::mutex> lock(mutex_);
-        state_ == ThreadState::SLEEPING;
+        state_ = ThreadState::SLEEPING;
         while (state_ == ThreadState::SLEEPING){
             cv_.wait(lock);
         }
@@ -69,8 +68,4 @@ std::thread::id Thread::getPid(){
 
 std::string Thread::getName(){
     return name_;
-}
-
-std::time_t Thread::getLastActiveTime(){
-    return lastActiveTime_;
 }

@@ -2,15 +2,13 @@
 
 #include <functional>
 
-ThreadPool::ThreadPool(size_t defaultNumThreads, Time* timer)
+ThreadPool::ThreadPool(size_t defaultNumThreads)
 {
-    timer_ = timer;
     timer_ -> setCallbak(std::bind(&ThreadPool::flush, this));
     for (size_t i = 0; i < defaultNumThreads; ++i){
         Thread* thread = new Thread("ThreadPool-Worker-" + std::to_string(i));
         threads_.push_back(thread);
     }
-    timer_ -> start();
 }
 
 ThreadPool::~ThreadPool(){
@@ -25,8 +23,13 @@ void ThreadPool::enqueueTask(std::function<void()> task){
     for (auto thread : threads_){
         if (thread -> getState() == ThreadState::SLEEPING){
             thread -> start(task);
+            return;
         }
     }
+
+    // 没有空闲线程
+    threads_.emplace_back(new Thread("ThreadPool-Worker-" + std::to_string(threads_.size())));
+    threads_.back() -> start(task);
 }
 
 void ThreadPool::clear(){

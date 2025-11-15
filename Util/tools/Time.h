@@ -44,7 +44,7 @@ public:
 
     void exit(){
         isRunning_ = false;
-        cv_.notify_all();
+        cv_.notify_one();
         if (thread_ && thread_->joinable()){
             thread_->join();
             delete thread_;

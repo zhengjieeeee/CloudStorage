@@ -32,7 +32,6 @@ public:
     ThreadState getState();
     std::thread::id getPid();
     std::string getName();
-    std::time_t getLastActiveTime();
     
 private:
     void run();

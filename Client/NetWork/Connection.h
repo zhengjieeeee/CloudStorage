@@ -8,7 +8,10 @@
 #include <condition_variable>
 #include <atomic>
 
+#include "../../Util/tools/Time.h"
 #include "../../Util/tools/MessageType.h"
+#include "../../Util/ThreadPool/ThreadPool.h"
+#include "MessageQueue.h"
 #include "Channel.h"
 
 class Connection
@@ -20,7 +23,8 @@ public:
     }
 
     // 使用内存池优化
-    bool send(char* data, size_t size, ChannelType type);
+    void send(char* data, size_t size, ChannelType type);
+    void setRecvCallback() { }
 private:
     Connection();
     ~Connection();
@@ -28,6 +32,18 @@ private:
     Connection(Connection&&) = delete;
     Connection& operator= (const Connection&) = delete;
 
+    void flush();
+    void onRecv();
+    
 private:
-   std::unordered_map<ChannelType, Channel*> channels_;
+    Time*                                       timer_;
+    ThreadPool*                                 threads_;
+    std::unordered_map<ChannelType, Channel*>   channels_;
+
+    MessageQueue*                               recvQueue_;
+    std::condition_variable*                    recvCv_;
+    std::mutex                                  mutex_;
+    std::atomic<bool>                           running_;
+
+    std::function<void(MessageInfo)>            cb_;
 };
