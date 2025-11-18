@@ -1,0 +1,139 @@
+syntax = "proto3";
+
+package Message;
+
+/***********************************************/
+message Header{
+    uint32 size = 1;
+    bytes type = 2;
+    bytes str = 3;
+}
+
+/***********************************************/
+message LoginRequest {
+    uint32 userID = 1;
+    bytes password = 2;
+}
+
+message LoginResponse {
+    uint32 success = 1;
+}
+
+message RegisterRequest {
+    bytes userName = 1;
+    bytes password = 2;
+}
+
+message RegisterResponse {
+    uint32 success = 1;
+}
+
+/***********************************************/
+message ListRequest{
+    uint32 userID = 1;
+    bytes path = 2;
+}
+
+message ListResponse{
+    uint32 success = 1;
+    bytes list = 2;
+}
+
+message ChangeDirRequest{
+    uint32 userID = 1;
+    bytes path = 2;
+}
+
+message ChangeDirResponse{
+    uint32 success = 1;
+}
+
+message PushRequest{
+    uint32 size = 1;
+    uint32 userID = 2;
+    bytes path = 3;
+}
+
+message PushResponse{
+    uint32 success = 1;
+}
+
+message PullRequest{
+    uint32 userID = 1;
+    bytes path = 2;
+}
+
+message PullResponse{
+    uint32 success = 1;
+    uint32 size = 2;
+}
+
+message RemoveRequest{
+    uint32 userID = 1;
+    bytes path = 2;
+}
+
+message RemoveResponse{
+    uint32 success = 1;
+}
+
+/***********************************************/
+message FriendInfo{
+    uint32 peerID = 1;
+    bytes peerName = 2;
+    uint32 online = 3;
+}
+
+message FriendListRequest{
+    uint32 userID = 1;
+}
+
+message FriendListResponse{
+    uint32 success = 1;
+    repeated FriendInfo friendList = 2;
+}
+
+message AddFriendRequest{
+    uint32 userID = 1;
+    uint32 peerID = 2;
+}
+
+message AddFriendResponse{
+    uint32 success = 1;
+}
+
+message DeleteFriendRequest{
+    uint32 userID = 1;
+    uint32 peerID = 2;
+}
+
+message DeleteFriendResponse{
+    uint32 success = 1;
+}
+
+message FriendOnlineNotify{
+    uint32 peerID = 1;
+    uint32 online = 2;
+}
+
+message ChangePermissionRequest{
+    uint32 userID = 1;
+    uint32 peerID = 2;
+    uint32 permission = 3;
+}
+
+message ChangePermissionResponse{
+    uint32 success = 1;
+}
+
+/***********************************************/
+message AIResquest{
+    uint32 userID = 1;
+    bytes prompt = 2;
+}
+
+message AIResponse{
+    uint32 userID = 1;
+    uint32 success = 2;
+    bytes response = 3;
+}

@@ -70,7 +70,7 @@ void* ThreadCache::fetchFromCentralCache(size_t index){
         current = *reinterpret_cast<void**>(current);
     }
 
-    freelist_[index] += batchNum;
+    freelistSize_[index] += batchNum;
 
     return result;
 }

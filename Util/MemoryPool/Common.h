@@ -1,13 +1,14 @@
 #pragma once
- #include <cstddef>
- #include <atomic>
- #include <array>
 
- constexpr size_t ALIGNMENT = 8;
- constexpr size_t MAN_BYTES = 1024 * 256;
- constexpr size_t FREE_LIST_SIZE = MAN_BYTES / ALIGNMENT;
+#include <cstddef>
+#include <atomic>
+#include <array>
 
- struct BlockHeader
+constexpr size_t ALIGNMENT = 8;
+constexpr size_t MAN_BYTES = 1024 * 256;
+constexpr size_t FREE_LIST_SIZE = MAN_BYTES / ALIGNMENT;
+
+struct BlockHeader
 {
     size_t size_;
     bool inUse_;
@@ -22,7 +23,7 @@ public:
     }
 
     static size_t getIndex(size_t bytes){
-        bytes = std::max(bytes, ALIGNMENT);
+        bytes = std::max<size_t>(bytes, ALIGNMENT);
         return (bytes + ALIGNMENT - 1) / ALIGNMENT - 1;
     }
 };

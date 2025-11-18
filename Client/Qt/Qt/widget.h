@@ -2,6 +2,14 @@
 #define WIDGET_H
 
 #include <QWidget>
+#include <QTabWidget>
+
+#include "cmdtab.h"
+#include "transtab.h"
+#include "messagetab.h"
+#include "aitab.h"
+#include "settingtab.h"
+#include "../../NetWork/Connection.h"
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class Widget; }
@@ -16,6 +24,18 @@ public:
     ~Widget();
 
 private:
-    Ui::Widget *ui;
+    void init();
+
+    void distribute(MessageInfo msgInfo);
+private:
+    Ui::Widget  *ui;
+
+    CmdTab*     cmdTab_;
+    TransTab*   transTab_;
+    MessageTab* msgTab_;
+    AITab*      aiTab_;
+    SettingTab* settingTab_;
+
+    Connection*  conn_;
 };
 #endif // WIDGET_H

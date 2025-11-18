@@ -15,7 +15,7 @@ void Thread::start(std::function<void()> task){
     if (!thread_ && state_ == ThreadState::STOPPED){
         task_ = task;
         state_ = ThreadState::RUNNING;
-        thread_ = new std::thread(run, this);
+        thread_ = new std::thread(&Thread::run, this);
         pid_ = thread_->get_id();
         state_ = ThreadState::RUNNING;
     }else{

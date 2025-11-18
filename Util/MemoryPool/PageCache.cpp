@@ -1,5 +1,6 @@
- #include "PageCache.h"
-#include <sys/mman.h>
+#include "PageCache.h"
+#include <Windows.h>
+//#include <sys/mman.h>
 #include <cstring>
 
 void* PageCache::allocateSpan(size_t numPages){

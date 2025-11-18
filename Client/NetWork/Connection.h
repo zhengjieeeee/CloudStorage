@@ -17,9 +17,9 @@
 class Connection
 {
 public:
-    static Connection& getInstance(){
+    static Connection* getInstance(){
         static Connection instance;
-        return instance;
+        return &instance;
     }
 
     // 使用内存池优化

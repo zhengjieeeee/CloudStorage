@@ -237,13 +237,13 @@ QTabWidget::pane {
          <enum>QTabWidget::Rounded</enum>
         </property>
         <property name="currentIndex">
-         <number>3</number>
+         <number>0</number>
         </property>
         <widget class="QWidget" name="command_tab">
          <attribute name="title">
           <string>命令行</string>
          </attribute>
-         <layout class="QVBoxLayout" name="verticalLayout_3" stretch="10">
+         <layout class="QVBoxLayout" name="verticalLayout_3" stretch="0">
           <property name="spacing">
            <number>0</number>
           </property>
@@ -260,7 +260,7 @@ QTabWidget::pane {
            <number>0</number>
           </property>
           <item>
-           <widget class="QTextBrowser" name="textBrowser"/>
+           <widget class="QTextEdit" name="cmd_textEdit"/>
           </item>
          </layout>
         </widget>
@@ -554,7 +554,7 @@ li.checked::marker { content: &quot;\2612&quot;; }
          <attribute name="title">
           <string>消息</string>
          </attribute>
-         <layout class="QHBoxLayout" name="horizontalLayout_4" stretch="1,5">
+         <layout class="QHBoxLayout" name="horizontalLayout_4" stretch="1,4">
           <property name="spacing">
            <number>0</number>
           </property>
